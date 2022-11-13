@@ -3,6 +3,8 @@
 
 // 삭제 버튼을 누르면 TodoListItem에서 onRemove 함수에 현재 자신이 가진 id를 넣어서 삭제 함수를 호출하도록 설정.
 
+// TodoList로부터 토글 함수 받아오기
+
 import React from 'react';
 import {
     MdCheckBoxOutlineBlank,
@@ -12,12 +14,12 @@ import {
 import cn from 'classnames';
 import './TodoListItem.scss';
 
-const TodoListItem = ({todo, onRemove}) => {
+const TodoListItem = ({todo, onRemove, onToggle}) => {
     const {id, text, checked} = todo;
 
     return (
         <div className="TodoListItem">
-            <div className={cn('checkbox', {checked})}>
+            <div className={cn('checkbox', {checked})} onClick={() => onToggle(id)}>
                 {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
                 <div className="text">{text}</div>
             </div>
