@@ -12,6 +12,10 @@
 // const biggerThanFive = array.filter(number => number > 5);
 // 결과: [6, 7, 8, 9, 10]
 
+// todos 배열에서 id로 항목 지우기
+// filter 함수로 onRemove 함수 작성.
+// 함수 만든 후, TodoList의 props로 설정.
+
 import React, {useState, useRef, useCallback} from 'react';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
@@ -53,10 +57,17 @@ const App = () => {
     [todos],
   );
 
+  const onRemove = useCallback(
+    id => {
+      setTodos(todos.filter(todo => todo.id !== id));
+    },
+    [todos],
+  );
+
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos}/>
+      <TodoList todos={todos} onRemove={onRemove} />
     </TodoTemplate>
   );
 };
