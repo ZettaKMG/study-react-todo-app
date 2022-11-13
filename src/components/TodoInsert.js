@@ -1,6 +1,7 @@
 // 새로운 항목을 입력하고 추가하는 컴포넌트.
 // state를 통해 인풋 상태를 관리.
 
+// TodoInsert value 상태 관리하기
 // 인풋에 입력하는 값을 관리할 수 있도록 useState를 사용하여 value 상태를 정의.
 // 추가로 인풋에 넣어 줄 onChange 함수 작성. -> 함수를 재사용 가능하도록 useCallback Hook 사용.
 
