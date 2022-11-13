@@ -1,6 +1,8 @@
 // 각 할 일 항목에 대한 정보를 보여주는 컴포넌트.
 // todo 객체를 받아와서 상태에 따라 다른 스타일의 UI를 보여줌.
 
+// 삭제 버튼을 누르면 TodoListItem에서 onRemove 함수에 현재 자신이 가진 id를 넣어서 삭제 함수를 호출하도록 설정.
+
 import React from 'react';
 import {
     MdCheckBoxOutlineBlank,
@@ -10,8 +12,8 @@ import {
 import cn from 'classnames';
 import './TodoListItem.scss';
 
-const TodoListItem = ({todo}) => {
-    const {text, checked} = todo;
+const TodoListItem = ({todo, onRemove}) => {
+    const {id, text, checked} = todo;
 
     return (
         <div className="TodoListItem">
@@ -19,7 +21,7 @@ const TodoListItem = ({todo}) => {
                 {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
                 <div className="text">{text}</div>
             </div>
-            <div className="remove">
+            <div className="remove" onClick={() => onRemove(id)}>
                 <MdRemoveCircleOutline />
             </div>
         </div>
