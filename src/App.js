@@ -4,6 +4,14 @@
 // onInsert 함수는 컴포넌트 성능을 아끼기 위해 useCallback으로 감싸줌.
 // onInsert 함수 생성 후에는 이 함수를 TodoInsert 컴포넌트의 props로 설정.
 
+// 지우기 기능 구현하기
+// 배열 내장 함수 filter
+// ㄴ 기존 배열은 그대로 둔 상태에서 특정 조건을 만족하는 원소들만 따로 추출하여 새 배열을 만듦.
+// 예제
+// const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// const biggerThanFive = array.filter(number => number > 5);
+// 결과: [6, 7, 8, 9, 10]
+
 import React, {useState, useRef, useCallback} from 'react';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
