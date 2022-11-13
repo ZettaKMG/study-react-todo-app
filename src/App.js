@@ -16,6 +16,10 @@
 // filter 함수로 onRemove 함수 작성.
 // 함수 만든 후, TodoList의 props로 설정.
 
+// 수정 기능
+// onToggle 함수를 app에 만듦 > 해당 함수를 TodoList 컴포넌트에 props로 넣기 > TodoList를 통해 TodoListItem까지 전달.
+// onToggle 구현하기
+
 import React, {useState, useRef, useCallback} from 'react';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
@@ -64,10 +68,21 @@ const App = () => {
     [todos],
   );
 
+  const onToggle = useCallback(
+    id => {
+      setTodos(
+        todos.map(todo =>
+          todo.id === id ? {...todo, checked: !todo.checked} : todo,
+        ),
+      );
+    },
+    [todos],
+  );
+
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} onRemove={onRemove} />
+      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
     </TodoTemplate>
   );
 };
