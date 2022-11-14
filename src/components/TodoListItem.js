@@ -15,6 +15,9 @@
 // 할 일 1 항목 체크 > App 컴포넌트 state 변경되면서 App 컴포넌트 리렌더링 > 부모 컴포넌트 리렌더링에 따른 TodoList 컴포넌트 리렌더링 > 그 안의 무수한 컴포넌트도 리렌더링
 // 할 일 1 항목에 대해서만 리렌더링 하면 되는데, 2 ~ 2500까지 전부 리렌더링 하게 되어서 성능이 저하됨.
 
+// React.memo를 사용하여 컴포넌트 성능 최적화
+// todo, onRemove, onToggle이 바뀌지 않으면 리렌더링 하지 않게 조치.
+
 import React from 'react';
 import {
     MdCheckBoxOutlineBlank,
@@ -40,4 +43,4 @@ const TodoListItem = ({todo, onRemove, onToggle}) => {
     );
 };
 
-export default TodoListItem;
+export default React.memo(TodoListItem);
