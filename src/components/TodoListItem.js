@@ -5,6 +5,13 @@
 
 // TodoList로부터 토글 함수 받아오기
 
+// 느려지는 원인 분석
+// 리렌더링 발생 상황들
+// 1. 자신이 전달받은 props가 변경될 때
+// 2. 자신의 state가 바뀔 때
+// 3. 부모 컴포넌트가 리렌더링될 때 <<< 여기에 해당
+// 4. forceUpdate 함수가 실행될 때
+
 import React from 'react';
 import {
     MdCheckBoxOutlineBlank,
