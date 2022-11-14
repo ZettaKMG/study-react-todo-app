@@ -20,33 +20,33 @@
 // onToggle 함수를 app에 만듦 > 해당 함수를 TodoList 컴포넌트에 props로 넣기 > TodoList를 통해 TodoListItem까지 전달.
 // onToggle 구현하기
 
+// 컴포넌트 성능 최적화
+// 많은 데이터 렌더링하기 > 크롬 개발자 도구를 통한 성능 모니터링 > React.memo를 통한 컴포넌트 리렌더링 성능 최적화 > onToggle과 onRemove가 새로워지는 현상 방지하기 > react-virtualized를 사용한 렌더링 최적화
+// 많은 데이터 렌더링하기
+
 import React, {useState, useRef, useCallback} from 'react';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
 
+function createBulkTodos() {
+  const array = [];
+  for (let i = 1; i <= 2500; i++) {
+      array.push({
+          id: i,
+          text: `할 일 ${i}`,
+          checked: false,
+      });
+  }
+  return array;
+}
+
 const App = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: '리액트의 기초 알아보기',
-      checked: true,
-    },
-    {
-      id: 2,
-      text: '컴포넌트 스타일링 해보기',
-      checked: true,
-    },
-    {
-      id: 3,
-      text: '일정 관리 앱 만들어보기',
-      checked: false,
-    },
-  ]);
+  const [todos, setTodos] = useState(createBulkTodos);
 
   // 고유값으로 사용될 id
   // ref를 사용하여 변수 담기
-  const nextId = useRef(4);
+  const nextId = useRef(2501);
 
   const onInsert = useCallback(
     text => {
