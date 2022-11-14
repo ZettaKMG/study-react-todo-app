@@ -11,22 +11,61 @@
 
 // react-virtualized를 사용한 렌더링 최적화
 // 브라우저 화면에 나오는 것들만 렌더링하고, 스크롤로 내려야 나오는 나머지 것들은 스크롤 내렸을 때만 렌더링 되게끔 최적화하는 방식.
-import React from "react";
+// import React from "react";
+// import TodoListItem from "./TodoListItem";
+// import './TodoList.scss';
+
+// const TodoList = ({todos, onRemove, onToggle}) => {
+//     return (
+//         <div className="TodoList">
+//             {todos.map(todo => (
+//                 <TodoListItem 
+//                     todo={todo} 
+//                     key={todo.id} 
+//                     onRemove={onRemove}
+//                     onToggle={onToggle}
+//                 />
+//             ))}
+//         </div>
+//     );
+// };
+
+// export default React.memo(TodoList);
+
+// 크롬 개발자 도구를 통해 각 항목의 실제 크기를 px 단위로 파악.
+// px 단위 파악 후, 수정
+import React, {useCallback} from "react";
+import {List} from 'react-virtualized';
 import TodoListItem from "./TodoListItem";
 import './TodoList.scss';
 
 const TodoList = ({todos, onRemove, onToggle}) => {
-    return (
-        <div className="TodoList">
-            {todos.map(todo => (
-                <TodoListItem 
-                    todo={todo} 
-                    key={todo.id} 
+    const rowRenderer = useCallback(
+        ({index, key, style}) => {
+            const todo = todos[index];
+            return (
+                <TodoListItem
+                    todo={todo}
+                    key={key}
                     onRemove={onRemove}
                     onToggle={onToggle}
-                />
-            ))}
-        </div>
+                    style={style}
+                />    
+            );
+        },
+        [onRemove, onToggle, todos],
+    );
+    return (
+        <List
+            className="TodoList"
+            width={512} // 전체 크기
+            height={513} // 전체 높이
+            rowCount={todos.length} // 항목 개수
+            rowHeight={57} // 항목 높이
+            rowRenderer={rowRenderer} // 항목을 렌더링할 때 쓰는 함수
+            list={todos} // 배열
+            style={{outline: 'none'}} // List에 기본 적용되는 outline 스타일 제거            
+        />
     );
 };
 
