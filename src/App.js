@@ -98,6 +98,7 @@ import React, {useReducer, useState, useRef, useCallback} from 'react';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
+import { FALSE } from 'node-sass';
 
 function createBulkTodos() {
   const array = [];
@@ -169,3 +170,48 @@ const App = () => {
 };
 
 export default App;
+
+// 불변성의 중요성
+// 기존의 값을 직접 수정하지 않으면서 새로운 값을 만들어 내는 것: '불변성을 지킨다'
+// 예시
+// const array = [1, 2, 3, 4, 5];
+
+// const nextArrayBad = array; // 배열 복사 X, 아예 똑같은 배열
+// nextArrayBad[0] = 100;
+// console.log(array === nextArrayBad); // 완전히 같은 배열이므로 true
+
+// const nextArrayGood = [...array]; // 배열 내부의 값 모두 복사
+// nextArrayGood[0] = 100;
+// console.log(array === nextArrayGood); // 다른 배열이므로 false
+
+// const object = {
+//   foo: 'bar',
+//   value: 1
+// };
+
+// const nextObjectBad = object; // 객체 복사 X, 아예 똑같은 객체
+// nextObjectBad.value = nextObjectBad.value + 1;
+// console.log(object === nextObjectBad); // 같은 객체이므로 true
+
+// const nextObjectGood = {
+//   ...object, // 기존에 있던 내용 모두 복사해서 넣기
+//   value: object.value + 1 // 새로운 값 덮어쓰기
+// };
+// console.log(object === nextObjectGood); // 다른 객체이므로 false
+
+// 불변성이 지켜지지 않으면 객체 내부 값을 변경해도 감지 못함.
+// ... 문법(전개 연산자)을 사용하여 객체 or 배열 내부 값을 복사하면 얕은 복사를 하게 됨.
+// ㄴ 가장 바깥쪽에 있는 값만 복사됨.
+//   ㄴ 내부의 값이 객체 or 배열이면 내부의 값까지 따로 복사해야 함.
+// 예시
+// const todos = [{id: 1, checked: true}, {id: 2, checked: true}];
+// const nextTodos = [...todos];
+
+// nextTodos[0].checked = false;
+// console.log(todos[0] === nextTodos[0]); // 아직까지는 똑같은 객체이므로 true
+
+// nextTodos[0] = {
+//   ...nextTodos[0],
+//   checked: false
+// };
+// console.log(todos[0] === nextTodos[0]); // 새로운 객체 할당되었으므로 false
