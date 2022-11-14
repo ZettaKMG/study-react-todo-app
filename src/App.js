@@ -24,6 +24,13 @@
 // 많은 데이터 렌더링하기 > 크롬 개발자 도구를 통한 성능 모니터링 > React.memo를 통한 컴포넌트 리렌더링 성능 최적화 > onToggle과 onRemove가 새로워지는 현상 방지하기 > react-virtualized를 사용한 렌더링 최적화
 // 많은 데이터 렌더링하기
 
+// onToggle, onRemove 함수가 바뀌지 않게 하기
+// onToggle, onRemove 함수는 배열 상태를 업데이트하는 과정에서 최신 상태의 todos를 계속 참조하기에 todos 배열 바뀔 때마다 함수가 새로 만들어짐.
+// 이를 방지하는 방법 2가지
+// 1. useState의 함수형 업데이트 기능 사용.
+// 2. useReducer 사용.
+
+// useState의 함수형 업데이트
 import React, {useState, useRef, useCallback} from 'react';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
@@ -48,29 +55,26 @@ const App = () => {
   // ref를 사용하여 변수 담기
   const nextId = useRef(2501);
 
-  const onInsert = useCallback(
-    text => {
+  const onInsert = useCallback(text => {
       const todo = {
         id: nextId.current,
         text,
         checked: false,
       };
-      setTodos(todos.concat(todo));
+      setTodos(todos => todos.concat(todo));
       nextId.current += 1; // nextId 1씩 더하기
     },
     [todos],
   );
 
-  const onRemove = useCallback(
-    id => {
-      setTodos(todos.filter(todo => todo.id !== id));
+  const onRemove = useCallback(id => {
+      setTodos(todos => todos.filter(todo => todo.id !== id));
     },
     [todos],
   );
 
-  const onToggle = useCallback(
-    id => {
-      setTodos(
+  const onToggle = useCallback(id => {
+      setTodos(todos =>
         todos.map(todo =>
           todo.id === id ? {...todo, checked: !todo.checked} : todo,
         ),
