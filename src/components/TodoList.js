@@ -8,6 +8,9 @@
 
 // TodoList 컴포넌트 최적화하기
 // 리스트 관련 컴포넌트 최적화 => 리스트 내부 컴포넌트, 리스트 자체 컴포넌트 양쪽 다 최적화 해줄 것.
+
+// react-virtualized를 사용한 렌더링 최적화
+// 브라우저 화면에 나오는 것들만 렌더링하고, 스크롤로 내려야 나오는 나머지 것들은 스크롤 내렸을 때만 렌더링 되게끔 최적화하는 방식.
 import React from "react";
 import TodoListItem from "./TodoListItem";
 import './TodoList.scss';
