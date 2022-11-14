@@ -171,7 +171,7 @@ const App = () => {
 
 export default App;
 
-// 불변성의 중요성
+// 
 // 기존의 값을 직접 수정하지 않으면서 새로운 값을 만들어 내는 것: '불변성을 지킨다'
 // 예시
 // const array = [1, 2, 3, 4, 5];
@@ -215,3 +215,15 @@ export default App;
 //   checked: false
 // };
 // console.log(todos[0] === nextTodos[0]); // 새로운 객체 할당되었으므로 false
+
+// 객체 안의 객체에 새 값을 할당
+// 예시
+// const nextComplexObject = {
+//   ...complexObject,
+//   objectInside: {
+//     ... complexObject.objectInside,
+//     enabled: false
+//   }
+// };
+// console.log(complexObject === nextComplexObject); // false
+// console.log(complexObject.objectInside === nextComplexObject.objectInside); // false
